@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\RoomImageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PublicRoomController;
+use App\Http\Controllers\AvailabilityController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('kamar', [PublicRoomController::class, 'index'])->name('rooms.index');
@@ -41,3 +42,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
             ->name('room-images.destroy');
     });
 });
+
+// AVAILABILITY
+Route::get('ketersediaan', [AvailabilityController::class, 'index'])->name('availability.index');
