@@ -17,4 +17,16 @@ class Room extends Model
     {
         return $this->belongsTo(RoomType::class);
     }
+
+    public function bookings()
+    {
+        return $this->belongsToMany(Booking::class, 'booking_rooms')
+            ->withPivot('price_per_night')
+            ->withTimestamps();
+    }
+
+    public function blockedDates()
+    {
+        return $this->hasMany(BlockedDate::class);
+    }
 }

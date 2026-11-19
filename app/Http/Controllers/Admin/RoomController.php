@@ -56,6 +56,11 @@ class RoomController extends Controller
 
     public function destroy(Room $room)
     {
+        // mencegah menghapus data kamar yang sudah pernah di booking
+        if ($room->bookings()->exists()) {
+            return back()->with('error', 'Kamar sudah pernah dipesan. Nonaktifkan saja, jangan dihapus.');
+        }
+
         $room->delete();
 
         return redirect()->route('admin.rooms.index')

@@ -13,4 +13,6 @@ return [
     'address' => 'Alamat villa',
     'phone' => '',
     'email' => '',
+
+    'payment_hours' => (int) env('VILLA_PAYMENT_HOURS', 24),
 ];
