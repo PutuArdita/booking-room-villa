@@ -58,4 +58,22 @@ class Booking extends Model
                 });
         });
     }
+
+    public function getStatusLabelAttribute(): string
+    {
+        if ($this->status === self::PENDING && $this->expires_at?->isPast()) {
+            return __('Kedaluwarsa');
+        }
+
+        return match ($this->status) {
+            self::PENDING => __('Menunggu pembayaran'),
+            self::CONFIRMED => __('Terkonfirmasi'),
+            self::CHECKED_IN => __('Check-in'),
+            self::CHECKED_OUT => __('Check-out'),
+            self::REJECTED => __('Ditolak'),
+            self::CANCELLED => __('Dibatalkan'),
+            self::EXPIRED => __('Kedaluwarsa'),
+            default => $this->status,
+        };
+    }
 }

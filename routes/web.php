@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PublicRoomController;
 use App\Http\Controllers\AvailabilityController;
+use App\Http\Controllers\BookingController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('kamar', [PublicRoomController::class, 'index'])->name('rooms.index');
@@ -45,3 +46,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 // AVAILABILITY
 Route::get('ketersediaan', [AvailabilityController::class, 'index'])->name('availability.index');
+
+// BOOKING
+
+Route::get('booking/buat', [BookingController::class, 'create'])->name('booking.create');
+Route::post('booking', [BookingController::class, 'store'])
+    ->middleware('throttle:10,1')->name('booking.store');
+Route::get('booking/{code}', [BookingController::class, 'show'])->name('booking.show');

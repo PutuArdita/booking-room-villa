@@ -20,7 +20,21 @@
         </div>
     </header>
 
-    <main>@yield('content')</main>
+    {{-- <main>@yield('content')</main> --}}
+    <main>
+        @if (session('success') || session('error'))
+            <div class="mx-auto max-w-6xl px-4 pt-4">
+                @if (session('success'))
+                    <div class="rounded bg-green-100 p-3 text-green-800">{{ session('success') }}</div>
+                @endif
+                @if (session('error'))
+                    <div class="rounded bg-red-100 p-3 text-red-800">{{ session('error') }}</div>
+                @endif
+            </div>
+        @endif
+
+        @yield('content')
+    </main>
 
     <footer class="mt-10 border-t">
         <div class="mx-auto max-w-6xl p-4 text-sm text-gray-500">
