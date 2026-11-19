@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Admin') - Villa A</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body class="bg-gray-100 text-gray-800">
     <nav class="bg-white shadow">
         <div class="mx-auto flex max-w-6xl items-center justify-between p-4">
             <a href="{{ route('admin.dashboard') }}" class="font-bold">Villa A Admin</a>
             <div class="flex items-center gap-4 text-sm">
+                <a href="{{ route('admin.room-types.index') }}" class="hover:underline">Tipe Kamar</a>
                 <span>{{ auth()->user()->name }} ({{ auth()->user()->role }})</span>
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
@@ -21,7 +24,14 @@
     </nav>
 
     <main class="mx-auto max-w-6xl p-4">
+        @if (session('success'))
+            <div class="mb-4 rounded bg-green-100 p-3 text-green-800">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+            <div class="mb-4 rounded bg-red-100 p-3 text-red-800">{{ session('error') }}</div>
+        @endif
         @yield('content')
     </main>
 </body>
+
 </html>
