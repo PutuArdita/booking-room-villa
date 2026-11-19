@@ -47,6 +47,7 @@ class RoomTypeController extends Controller
             return back()->with('error', 'Tipe kamar masih punya kamar, hapus kamarnya dulu.');
         }
 
+        \Illuminate\Support\Facades\Storage::disk('public')->deleteDirectory("room-types/{$roomType->id}");
         $roomType->delete();
 
         return redirect()->route('admin.room-types.index')
