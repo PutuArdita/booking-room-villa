@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\RoomTypeController;
+use App\Http\Controllers\Admin\RoomController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,5 +26,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
             ->except('show')
             ->parameters(['tipe-kamar' => 'roomType'])
             ->names('room-types');
+        Route::resource('kamar', RoomController::class)
+            ->except('show')
+            ->parameters(['kamar' => 'room'])
+            ->names('rooms');
     });
 });

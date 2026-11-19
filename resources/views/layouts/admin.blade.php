@@ -14,6 +14,7 @@
             <a href="{{ route('admin.dashboard') }}" class="font-bold">Villa A Admin</a>
             <div class="flex items-center gap-4 text-sm">
                 <a href="{{ route('admin.room-types.index') }}" class="hover:underline">Tipe Kamar</a>
+                <a href="{{ route('admin.rooms.index') }}" class="hover:underline">Kamar</a>
                 <span>{{ auth()->user()->name }} ({{ auth()->user()->role }})</span>
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
