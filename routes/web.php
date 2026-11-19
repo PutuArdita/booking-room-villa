@@ -5,10 +5,14 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomImageController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\PublicRoomController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('kamar', [PublicRoomController::class, 'index'])->name('rooms.index');
+Route::get('kamar/{roomType:slug}', [PublicRoomController::class, 'show'])->name('rooms.show');
+Route::get('bahasa/{locale}', [LocaleController::class, 'switch'])->name('locale');
 
 
 // ADMIN & OWNER AUTH
