@@ -76,4 +76,13 @@ class Booking extends Model
             default => $this->status,
         };
     }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function isPayable(): bool
+    {
+        return $this->status === self::PENDING && $this->expires_at?->isFuture();
+    }
 }

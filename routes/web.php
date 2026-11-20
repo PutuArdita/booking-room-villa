@@ -53,3 +53,9 @@ Route::get('booking/buat', [BookingController::class, 'create'])->name('booking.
 Route::post('booking', [BookingController::class, 'store'])
     ->middleware('throttle:10,1')->name('booking.store');
 Route::get('booking/{code}', [BookingController::class, 'show'])->name('booking.show');
+
+use App\Http\Controllers\PaymentController;
+
+Route::get('booking/{code}/bayar', [PaymentController::class, 'show'])->name('booking.pay');
+Route::post('booking/{code}/bayar', [PaymentController::class, 'store'])
+    ->middleware('throttle:10,1')->name('booking.pay.store');

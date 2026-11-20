@@ -28,7 +28,7 @@ class BookingController extends Controller
             ->with('roomType')
             ->find($data['room_id']);
 
-        if (! $room || $room->roomType->capacity < (int) $data['guests']) {
+        if (!$room || $room->roomType->capacity < (int) $data['guests']) {
             return redirect()
                 ->route('availability.index', $request->only('check_in', 'check_out', 'guests'))
                 ->with('error', __('Kamar tidak tersedia untuk pilihan tersebut.'));
@@ -53,7 +53,8 @@ class BookingController extends Controller
 
     public function show(string $code)
     {
-        $booking = Booking::with('rooms.roomType')->where('code', $code)->firstOrFail();
+        // $booking = Booking::with('rooms.roomType')->where('code', $code)->firstOrFail();
+        $booking = Booking::with('rooms.roomType', 'payments')->where('code', $code)->firstOrFail();
 
         return view('booking.show', compact('booking'));
     }
