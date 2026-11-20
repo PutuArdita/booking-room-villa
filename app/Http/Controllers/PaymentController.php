@@ -50,6 +50,11 @@ class PaymentController extends Controller
                 'proof_path' => $path,
                 'status' => Payment::PENDING,
             ]);
+            $locked->statusLogs()->create([
+                'from_status' => $locked->status,
+                'to_status' => $locked->status,
+                'note' => 'Bukti pembayaran diunggah',
+            ]);
         });
 
         return redirect()

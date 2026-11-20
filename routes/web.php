@@ -10,6 +10,7 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PublicRoomController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Admin\ReservationController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('kamar', [PublicRoomController::class, 'index'])->name('rooms.index');
@@ -41,6 +42,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
             ->name('room-types.images.store');
         Route::delete('foto/{image}', [RoomImageController::class, 'destroy'])
             ->name('room-images.destroy');
+
+
+        Route::get('reservasi', [ReservationController::class, 'index'])->name('reservations.index');
+        Route::get('reservasi/{booking}', [ReservationController::class, 'show'])->name('reservations.show');
+        Route::patch('reservasi/{booking}/status', [ReservationController::class, 'updateStatus'])->name('reservations.status');
+        Route::post('pembayaran/{payment}/verifikasi', [ReservationController::class, 'verifyPayment'])->name('payments.verify');
+        Route::post('pembayaran/{payment}/tolak', [ReservationController::class, 'rejectPayment'])->name('payments.reject');
+        Route::get('pembayaran/{payment}/bukti', [ReservationController::class, 'proof'])->name('payments.proof');
     });
 });
 
