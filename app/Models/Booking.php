@@ -48,24 +48,52 @@ class Booking extends Model
      * Booking yang sedang mengunci kamar: terkonfirmasi, check-in,
      * atau menunggu pembayaran yang belum lewat batas waktu.
      */
+    // public function scopeBlocking($query)
+    // {
+    //     return $query->where(function ($q) {
+    //         $q->whereIn('bookings.status', [self::CONFIRMED, self::CHECKED_IN])
+    //             ->orWhere(function ($q) {
+    //                 $q->where('bookings.status', self::PENDING)
+    //                     ->where('bookings.expires_at', '>', now());
+    //             });
+    //     });
+    // }
+
     public function scopeBlocking($query)
     {
         return $query->where(function ($q) {
             $q->whereIn('bookings.status', [self::CONFIRMED, self::CHECKED_IN])
                 ->orWhere(function ($q) {
                     $q->where('bookings.status', self::PENDING)
-                        ->where('bookings.expires_at', '>', now());
+                        ->where(function ($q) {
+                            $q->where('bookings.expires_at', '>', now())
+                                ->orWhereHas('payments', fn($p) => $p->where('status', Payment::PENDING));
+                        });
                 });
         });
     }
 
-    public function getStatusLabelAttribute(): string
-    {
-        if ($this->status === self::PENDING && $this->expires_at?->isPast()) {
-            return __('Kedaluwarsa');
-        }
+    // public function getStatusLabelAttribute(): string
+    // {
+    //     if ($this->status === self::PENDING && $this->expires_at?->isPast()) {
+    //         return __('Kedaluwarsa');
+    //     }
 
-        return match ($this->status) {
+    //     return match ($this->status) {
+    //         self::PENDING => __('Menunggu pembayaran'),
+    //         self::CONFIRMED => __('Terkonfirmasi'),
+    //         self::CHECKED_IN => __('Check-in'),
+    //         self::CHECKED_OUT => __('Check-out'),
+    //         self::REJECTED => __('Ditolak'),
+    //         self::CANCELLED => __('Dibatalkan'),
+    //         self::EXPIRED => __('Kedaluwarsa'),
+    //         default => $this->status,
+    //     };
+    // }
+
+    public static function statusText(string $status): string
+    {
+        return match ($status) {
             self::PENDING => __('Menunggu pembayaran'),
             self::CONFIRMED => __('Terkonfirmasi'),
             self::CHECKED_IN => __('Check-in'),
@@ -73,7 +101,35 @@ class Booking extends Model
             self::REJECTED => __('Ditolak'),
             self::CANCELLED => __('Dibatalkan'),
             self::EXPIRED => __('Kedaluwarsa'),
-            default => $this->status,
+            default => $status,
         };
+    }
+
+    public function getStatusLabelAttribute(): string
+    {
+        if (
+            $this->status === self::PENDING
+            && $this->expires_at?->isPast()
+            && $this->payments->where('status', Payment::PENDING)->isEmpty()
+        ) {
+            return __('Kedaluwarsa');
+        }
+
+        return self::statusText($this->status);
+    }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function isPayable(): bool
+    {
+        return $this->status === self::PENDING && $this->expires_at?->isFuture();
+    }
+
+    // relasi log status
+    public function statusLogs()
+    {
+        return $this->hasMany(BookingStatusLog::class)->latest('id');
     }
 }

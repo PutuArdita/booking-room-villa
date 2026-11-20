@@ -11,7 +11,9 @@ use Illuminate\Validation\ValidationException;
 
 class BookingService
 {
-    public function __construct(private AvailabilityService $availability) {}
+    public function __construct(private AvailabilityService $availability)
+    {
+    }
 
     public function create(Room $room, array $data): Booking
     {
@@ -28,10 +30,10 @@ class BookingService
 
             $available = $locked
                 && $this->availability->availableRooms($checkIn, $checkOut)
-                ->whereKey($locked->id)
-                ->exists();
+                    ->whereKey($locked->id)
+                    ->exists();
 
-            if (! $available) {
+            if (!$available) {
                 throw ValidationException::withMessages([
                     'room_id' => __('Kamar sudah tidak tersedia pada tanggal tersebut. Silakan pilih kamar lain.'),
                 ]);
@@ -60,6 +62,12 @@ class BookingService
             ]);
 
             $booking->rooms()->attach($locked->id, ['price_per_night' => $type->base_price]);
+
+            $booking->statusLogs()->create([
+                'from_status' => null,
+                'to_status' => Booking::PENDING,
+                'note' => 'Booking dibuat tamu',
+            ]);
 
             return $booking;
         });
