@@ -60,5 +60,16 @@
     "Booking ini tidak dapat menerima bukti pembayaran (sudah dibayar, sedang diproses, atau kedaluwarsa).": "This booking can no longer accept proof of payment (already paid, being processed, or expired).",
     "Bukti pembayaran diunggah. Menunggu verifikasi admin.": "Proof of payment uploaded. Awaiting admin verification.",
     "Bukti transfer sudah diunggah dan sedang diproses oleh admin.": "Proof of transfer has been uploaded and is being processed by the admin.",
-    "Booking ini tidak dapat dibayar lagi.": "This booking can no longer be paid."
+    "Booking ini tidak dapat dibayar lagi.": "This booking can no longer be paid.",
+    "Booking :code dibuat": "Booking :code created",
+    "Booking Anda sudah dibuat": "Your booking has been created",
+    "Halo :name, terima kasih telah memesan di :villa.": "Hello :name, thank you for booking at :villa.",
+    "Booking :code terkonfirmasi": "Booking :code confirmed",
+    "Booking Anda terkonfirmasi": "Your booking is confirmed",
+    "Halo :name, pembayaran Anda sudah diverifikasi. Sampai jumpa di :villa!": "Hello :name, your payment has been verified. See you at :villa!",
+    "Lihat Status Booking": "View Booking Status",
+    "Pembayaran booking :code ditolak": "Payment for booking :code was rejected",
+    "Pembayaran Anda ditolak": "Your payment was rejected",
+    "Halo :name, bukti pembayaran Anda belum dapat kami terima.": "Hello :name, we could not accept your proof of payment.",
+    "Silakan unggah ulang bukti transfer sebelum :deadline WITA.": "Please upload the proof of transfer again before :deadline WITA."
 }

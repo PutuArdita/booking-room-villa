@@ -8,11 +8,14 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Mail\BookingCreated;
 
 class BookingService
 {
-    public function __construct(private AvailabilityService $availability)
-    {
+    public function __construct(
+        private AvailabilityService $availability,
+        private BookingMailer $mailer,
+    ) {
     }
 
     public function create(Room $room, array $data): Booking
@@ -21,7 +24,7 @@ class BookingService
         $checkOut = Carbon::parse($data['check_out'])->startOfDay();
         $nights = (int) $checkIn->diffInDays($checkOut);
 
-        return DB::transaction(function () use ($room, $data, $checkIn, $checkOut, $nights) {
+        $booking = DB::transaction(function () use ($room, $data, $checkIn, $checkOut, $nights) {
             // Kunci baris kamar. Harus jadi query pertama di dalam transaksi.
             $locked = Room::whereKey($room->id)
                 ->where('is_active', true)
@@ -59,6 +62,7 @@ class BookingService
                 'status' => Booking::PENDING,
                 'expires_at' => now()->addHours(config('villa.payment_hours')),
                 'notes' => $data['notes'] ?? null,
+                'locale' => app()->getLocale(),
             ]);
 
             $booking->rooms()->attach($locked->id, ['price_per_night' => $type->base_price]);
@@ -71,6 +75,9 @@ class BookingService
 
             return $booking;
         });
+        $this->mailer->send($booking, new BookingCreated($booking));
+
+        return $booking;
     }
 
     private function generateCode(): string

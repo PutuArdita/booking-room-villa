@@ -7,6 +7,8 @@ use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use App\Mail\BookingConfirmed;
+use App\Mail\PaymentRejected;
 
 class BookingStatusService
 {
@@ -15,6 +17,10 @@ class BookingStatusService
         Booking::CONFIRMED => [Booking::CHECKED_IN, Booking::CANCELLED],
         Booking::CHECKED_IN => [Booking::CHECKED_OUT],
     ];
+
+    public function __construct(private BookingMailer $mailer)
+    {
+    }
 
     public function allowed(Booking $booking): array
     {
@@ -59,6 +65,8 @@ class BookingStatusService
 
             $this->apply($booking, Booking::CONFIRMED, $user, 'Pembayaran diverifikasi');
         });
+        $booking = Booking::with('rooms.roomType')->find($payment->booking_id);
+        $this->mailer->send($booking, new BookingConfirmed($booking));
     }
 
     public function rejectPayment(Payment $payment, User $user, string $note): void
@@ -78,6 +86,8 @@ class BookingStatusService
 
             $this->log($booking, $booking->status, $booking->status, $user, 'Pembayaran ditolak: ' . $note);
         });
+        $booking = Booking::with('rooms.roomType')->find($payment->booking_id);
+        $this->mailer->send($booking, new PaymentRejected($booking, $note));
     }
 
     private function lockForPayment(Payment $payment): array
