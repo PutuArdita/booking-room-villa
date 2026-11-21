@@ -12,6 +12,9 @@ use App\Http\Controllers\PublicRoomController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Admin\ReservationController;
+use App\Http\Controllers\Admin\BlockedDateController;
+use App\Http\Controllers\Admin\CalendarController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('kamar', [PublicRoomController::class, 'index'])->name('rooms.index');
@@ -29,7 +32,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware(['auth', 'role:admin,owner'])->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-        Route::view('/', 'admin.dashboard')->name('dashboard');
+        // Route::view('/', 'admin.dashboard')->name('dashboard');
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('kalender', [CalendarController::class, 'index'])->name('calendar');
+        Route::get('blokir-tanggal', [BlockedDateController::class, 'index'])->name('blocked-dates.index');
+        Route::get('blokir-tanggal/buat', [BlockedDateController::class, 'create'])->name('blocked-dates.create');
+        Route::post('blokir-tanggal', [BlockedDateController::class, 'store'])->name('blocked-dates.store');
+        Route::delete('blokir-tanggal/{blockedDate}', [BlockedDateController::class, 'destroy'])->name('blocked-dates.destroy');
         // ROOM
         Route::resource('tipe-kamar', RoomTypeController::class)
             ->except('show')
