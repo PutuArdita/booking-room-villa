@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schedule;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Admin\RoomController;
@@ -68,3 +69,7 @@ use App\Http\Controllers\PaymentController;
 Route::get('booking/{code}/bayar', [PaymentController::class, 'show'])->name('booking.pay');
 Route::post('booking/{code}/bayar', [PaymentController::class, 'store'])
     ->middleware('throttle:10,1')->name('booking.pay.store');
+
+
+// expiring booking
+Schedule::command('bookings:expire')->everyFiveMinutes()->withoutOverlapping();
