@@ -18,7 +18,12 @@
                 <a href="{{ route('admin.reservations.index') }}" class="hover:underline">Reservasi</a>
                 <a href="{{ route('admin.room-types.index') }}" class="hover:underline">Tipe Kamar</a>
                 <a href="{{ route('admin.rooms.index') }}" class="hover:underline">Kamar</a>
-                <span>{{ auth()->user()->name }} ({{ auth()->user()->role }})</span>
+                {{-- <span>{{ auth()->user()->name }} ({{ auth()->user()->role }})</span> --}}
+                @if (auth()->user()->role === 'owner')
+                    <a href="{{ route('admin.users.index') }}" class="hover:underline">Pengguna</a>
+                @endif
+                <a href="{{ route('admin.account.edit') }}" class="hover:underline">{{ auth()->user()->name }}
+                    ({{ auth()->user()->role }})</a>
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
                     <button class="text-red-600 hover:underline">Keluar</button>
