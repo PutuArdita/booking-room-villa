@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\BlockedDateController;
 use App\Http\Controllers\Admin\CalendarController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('kamar', [PublicRoomController::class, 'index'])->name('rooms.index');
@@ -30,8 +32,22 @@ Route::prefix('admin')->name('admin.')->group(function () {
             ->middleware('throttle:5,1');
     });
 
+    // role owner
+    Route::middleware(['auth', 'role:owner'])->group(function () {
+        Route::resource('pengguna', UserController::class)
+            ->except(['show', 'destroy'])
+            ->parameters(['pengguna' => 'user'])
+            ->names('users');
+
+        Route::patch('pengguna/{user}/status', [UserController::class, 'toggleActive'])->name('users.toggle');
+    });
+
     Route::middleware(['auth', 'role:admin,owner'])->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+        // user account
+        Route::get('akun', [AccountController::class, 'edit'])->name('account.edit');
+        Route::put('akun/profil', [AccountController::class, 'updateProfile'])->name('account.profile');
+        Route::put('akun/password', [AccountController::class, 'updatePassword'])->name('account.password');
         // Route::view('/', 'admin.dashboard')->name('dashboard');
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('kalender', [CalendarController::class, 'index'])->name('calendar');
