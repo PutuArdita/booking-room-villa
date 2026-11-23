@@ -21,6 +21,7 @@
                 {{-- <span>{{ auth()->user()->name }} ({{ auth()->user()->role }})</span> --}}
                 @if (auth()->user()->role === 'owner')
                     <a href="{{ route('admin.users.index') }}" class="hover:underline">Pengguna</a>
+                    <a href="{{ route('admin.reports.index') }}" class="hover:underline">Laporan</a>
                 @endif
                 <a href="{{ route('admin.account.edit') }}" class="hover:underline">{{ auth()->user()->name }}
                     ({{ auth()->user()->role }})</a>

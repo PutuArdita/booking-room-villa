@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\CalendarController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ReportController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('kamar', [PublicRoomController::class, 'index'])->name('rooms.index');
@@ -40,6 +41,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
             ->names('users');
 
         Route::patch('pengguna/{user}/status', [UserController::class, 'toggleActive'])->name('users.toggle');
+        Route::get('laporan', [ReportController::class, 'index'])->name('reports.index');
+        Route::get('laporan/ekspor', [ReportController::class, 'export'])->name('reports.export');
     });
 
     Route::middleware(['auth', 'role:admin,owner'])->group(function () {
