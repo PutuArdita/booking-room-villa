@@ -6,7 +6,7 @@
     <div class="mb-4 flex items-center justify-between">
         <h1 class="text-2xl font-bold">Kamar</h1>
         <a href="{{ route('admin.rooms.create') }}"
-           class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Tambah</a>
+            class="rounded bg-brand-600 px-4 py-2 text-white hover:bg-brand-700">Tambah</a>
     </div>
 
     <form method="GET" class="mb-4 flex items-center gap-2 text-sm">
@@ -43,10 +43,9 @@
                             @endif
                         </td>
                         <td class="flex gap-3 p-3">
-                            <a href="{{ route('admin.rooms.edit', $room) }}"
-                               class="text-blue-600 hover:underline">Ubah</a>
+                            <a href="{{ route('admin.rooms.edit', $room) }}" class="text-brand-600 hover:underline">Ubah</a>
                             <form method="POST" action="{{ route('admin.rooms.destroy', $room) }}"
-                                  onsubmit="return confirm('Hapus kamar ini?')">
+                                onsubmit="return confirm('Hapus kamar ini?')">
                                 @csrf
                                 @method('DELETE')
                                 <button class="text-red-600 hover:underline">Hapus</button>
@@ -54,7 +53,9 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="4" class="p-3 text-center text-gray-500">Belum ada kamar.</td></tr>
+                    <tr>
+                        <td colspan="4" class="p-3 text-center text-gray-500">Belum ada kamar.</td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>

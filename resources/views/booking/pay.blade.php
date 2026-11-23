@@ -10,7 +10,7 @@
     @endphp
 
     <div class="mx-auto max-w-3xl px-4 py-8">
-        <a href="{{ route('booking.show', $booking->code) }}" class="text-sm text-blue-600 hover:underline">
+        <a href="{{ route('booking.show', $booking->code) }}" class="text-sm text-brand-600 hover:underline">
             &larr; {{ __('Kembali ke status booking') }}
         </a>
 
@@ -59,12 +59,12 @@
                 <input type="file" name="proof" required accept="image/jpeg,image/png,image/webp,application/pdf"
                     class="block w-full text-sm">
                 <p class="text-xs text-gray-500">{{ __('Maksimal 3 MB (jpg, png, webp, atau pdf).') }}</p>
-                <button class="rounded bg-blue-600 px-5 py-2 text-white hover:bg-blue-700">
+                <button class="rounded bg-brand-600 px-5 py-2 text-white hover:bg-brand-700">
                     {{ __('Unggah') }}
                 </button>
             </form>
         @elseif ($hasActive)
-            <p class="mt-4 rounded bg-blue-50 p-3 text-sm text-blue-800">
+            <p class="mt-4 rounded bg-brand-50 p-3 text-sm text-brand-800">
                 {{ __('Bukti transfer sudah diunggah dan sedang diproses oleh admin.') }}
             </p>
         @else

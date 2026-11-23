@@ -22,12 +22,12 @@
             <div>
                 <label class="block text-sm">Nama</label>
                 <input type="text" name="name" value="{{ old('name', auth()->user()->name) }}" required
-                    class="w-full rounded border p-2">
+                    class="input">
             </div>
             <p class="text-sm text-gray-500">Email: {{ auth()->user()->email }} &middot; Peran: {{ auth()->user()->role }}
             </p>
 
-            <button class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Simpan</button>
+            <button class="rounded bg-brand-600 px-4 py-2 text-white hover:bg-brand-700">Simpan</button>
         </form>
 
         <form method="POST" action="{{ route('admin.account.password') }}" class="space-y-4 rounded bg-white p-6 shadow">
@@ -45,18 +45,18 @@
 
             <div>
                 <label class="block text-sm">Password saat ini</label>
-                <input type="password" name="current_password" required class="w-full rounded border p-2">
+                <input type="password" name="current_password" required class="input">
             </div>
             <div>
                 <label class="block text-sm">Password baru (minimal 8 karakter)</label>
-                <input type="password" name="password" required class="w-full rounded border p-2">
+                <input type="password" name="password" required class="input">
             </div>
             <div>
                 <label class="block text-sm">Ulangi password baru</label>
-                <input type="password" name="password_confirmation" required class="w-full rounded border p-2">
+                <input type="password" name="password_confirmation" required class="input">
             </div>
 
-            <button class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Ganti Password</button>
+            <button class="rounded bg-brand-600 px-4 py-2 text-white hover:bg-brand-700">Ganti Password</button>
         </form>
     </div>
 @endsection

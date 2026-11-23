@@ -6,7 +6,7 @@
     <div class="mb-4 flex items-center justify-between">
         <h1 class="text-2xl font-bold">Tipe Kamar</h1>
         <a href="{{ route('admin.room-types.create') }}"
-            class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Tambah</a>
+            class="rounded bg-brand-600 px-4 py-2 text-white hover:bg-brand-700">Tambah</a>
     </div>
 
     <div class="overflow-x-auto rounded bg-white shadow">
@@ -29,7 +29,7 @@
                         <td class="p-3">{{ $type->rooms_count }}</td>
                         <td class="flex gap-3 p-3">
                             <a href="{{ route('admin.room-types.edit', $type) }}"
-                                class="text-blue-600 hover:underline">Ubah</a>
+                                class="text-brand-600 hover:underline">Ubah</a>
                             <form method="POST" action="{{ route('admin.room-types.destroy', $type) }}"
                                 onsubmit="return confirm('Hapus tipe kamar ini?')">
                                 @csrf

@@ -11,7 +11,7 @@ class HomeController extends Controller
         $roomTypes = RoomType::bookable()
             ->with('images')
             ->orderBy('base_price')
-            ->take(3)
+            ->take(6)
             ->get();
 
         return view('home', compact('roomTypes'));
