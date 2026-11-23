@@ -60,7 +60,7 @@
 
     @if ($booking->isPayable() && $booking->payments->whereIn('status', ['pending', 'verified'])->isEmpty())
         <a href="{{ route('booking.pay', $booking->code) }}"
-            class="mt-6 inline-block rounded bg-blue-600 px-5 py-2 text-white hover:bg-blue-700">
+            class="mt-6 inline-block rounded bg-brand-600 px-5 py-2 text-white hover:bg-brand-700">
             {{ __('Bayar Sekarang') }}
         </a>
     @endif

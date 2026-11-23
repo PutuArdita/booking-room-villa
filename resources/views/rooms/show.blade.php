@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="mx-auto max-w-6xl px-4 py-8">
-        <a href="{{ route('rooms.index') }}" class="text-sm text-blue-600 hover:underline">
+        <a href="{{ route('rooms.index') }}" class="text-sm text-brand-600 hover:underline">
             &larr; {{ __('Kembali ke daftar kamar') }}
         </a>
         <h1 class="mt-2 text-3xl font-bold">{{ $roomType->name }}</h1>

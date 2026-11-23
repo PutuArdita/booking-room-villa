@@ -18,20 +18,20 @@
             <div>
                 <label class="block text-sm">Check-in</label>
                 <input type="date" name="check_in" value="{{ request('check_in') }}" min="{{ today()->toDateString() }}"
-                    required class="w-full rounded border p-2">
+                    required class="input">
             </div>
             <div>
                 <label class="block text-sm">Check-out</label>
                 <input type="date" name="check_out" value="{{ request('check_out') }}"
-                    min="{{ today()->addDay()->toDateString() }}" required class="w-full rounded border p-2">
+                    min="{{ today()->addDay()->toDateString() }}" required class="input">
             </div>
             <div>
                 <label class="block text-sm">{{ __('Jumlah tamu') }}</label>
-                <input type="number" name="guests" min="1" max="50" value="{{ request('guests', 2) }}"
-                    required class="w-full rounded border p-2">
+                <input type="number" name="guests" min="1" max="50" value="{{ request('guests', 2) }}" required
+                    class="input">
             </div>
             <div class="flex items-end">
-                <button class="w-full rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
+                <button class="w-full rounded bg-brand-600 px-4 py-2 text-white hover:bg-brand-700">
                     {{ __('Cari') }}
                 </button>
             </div>
@@ -46,8 +46,7 @@
                 @forelse ($results as $type)
                     <div class="overflow-hidden rounded border">
                         @if ($type->images->first())
-                            <img src="{{ $type->images->first()->url }}" alt="{{ $type->name }}"
-                                class="h-48 w-full object-cover">
+                            <img src="{{ $type->images->first()->url }}" alt="{{ $type->name }}" class="h-48 w-full object-cover">
                         @else
                             <div class="flex h-48 items-center justify-center bg-gray-100 text-sm text-gray-400">
                                 {{ __('Belum ada foto') }}
@@ -70,21 +69,21 @@
                                 </p>
                                 <div class="mt-1 flex flex-wrap gap-2">
                                     @foreach ($type->availableRooms as $room)
-                                        <a href="{{ route('booking.create', [
+                                                    <a href="{{ route('booking.create', [
                                             'room_id' => $room->id,
                                             'check_in' => request('check_in'),
                                             'check_out' => request('check_out'),
                                             'guests' => request('guests'),
                                         ]) }}"
-                                            class="rounded bg-green-100 px-3 py-1 text-sm text-green-800 hover:bg-green-200">
-                                            {{ $room->name }} &rarr; {{ __('Pesan') }}
-                                        </a>
+                                                        class="rounded bg-green-100 px-3 py-1 text-sm text-green-800 hover:bg-green-200">
+                                                        {{ $room->name }} &rarr; {{ __('Pesan') }}
+                                                    </a>
                                     @endforeach
                                 </div>
                             </div>
 
                             <a href="{{ route('rooms.show', $type->slug) }}"
-                                class="inline-block text-sm text-blue-600 hover:underline">
+                                class="inline-block text-sm text-brand-600 hover:underline">
                                 {{ __('Lihat detail') }}
                             </a>
                         </div>

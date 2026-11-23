@@ -22,7 +22,7 @@
             <option value="{{ $value }}" @selected(request('status') === $value)>{{ $label }}</option>
         @endforeach
     </select>
-    <button class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Cari</button>
+    <button class="rounded bg-brand-600 px-4 py-2 text-white hover:bg-brand-700">Cari</button>
 </form>
 
 <div class="overflow-x-auto rounded bg-white shadow">
@@ -43,14 +43,15 @@
             <tr class="border-t">
                 <td class="p-3">
                     <a href="{{ route('admin.reservations.show', $booking) }}"
-                        class="font-semibold text-blue-600 hover:underline">{{ $booking->code }}</a>
+                        class="font-semibold text-brand-600 hover:underline">{{ $booking->code }}</a>
                 </td>
                 <td class="p-3">{{ $booking->guest_name }}<br>
                     <span class="text-gray-500">{{ $booking->guest_phone }}</span>
                 </td>
                 <td class="p-3">{{ $room?->roomType->name }} - {{ $room?->name }}</td>
                 <td class="p-3">{{ $booking->check_in->format('d/m/Y') }} &rarr;
-                    {{ $booking->check_out->format('d/m/Y') }}</td>
+                    {{ $booking->check_out->format('d/m/Y') }}
+                </td>
                 <td class="p-3">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</td>
                 <td class="p-3">
                     @include('admin.reservations._badge')

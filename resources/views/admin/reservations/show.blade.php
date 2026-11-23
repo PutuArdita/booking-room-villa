@@ -5,7 +5,7 @@
 @section('content')
 @php($room = $booking->rooms->first())
 
-<a href="{{ route('admin.reservations.index') }}" class="text-sm text-blue-600 hover:underline">&larr; Kembali</a>
+<a href="{{ route('admin.reservations.index') }}" class="text-sm text-brand-600 hover:underline">&larr; Kembali</a>
 
 <div class="mt-2 mb-4 flex items-center gap-3">
     <h1 class="text-2xl font-bold">{{ $booking->code }}</h1>
@@ -107,7 +107,7 @@
                                 @csrf
                                 @method('PATCH')
                                 <input type="hidden" name="status" value="{{ $to }}">
-                                <button class="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-700">
+                                <button class="rounded bg-brand-600 px-3 py-1 text-sm text-white hover:bg-brand-700">
                                     {{ $to === \App\Models\Booking::CHECKED_IN ? 'Check-in' : 'Check-out' }}
                                 </button>
                             </form>
@@ -130,14 +130,15 @@
                     </div>
                     <p>Rp {{ number_format($payment->amount, 0, ',', '.') }}</p>
                     <a href="{{ route('admin.payments.proof', $payment) }}" target="_blank"
-                        class="text-blue-600 hover:underline">Lihat bukti transfer</a>
+                        class="text-brand-600 hover:underline">Lihat bukti transfer</a>
 
                     @if ($payment->note)
                         <p class="mt-1 text-gray-600">Catatan: {{ $payment->note }}</p>
                     @endif
                     @if ($payment->verifier)
                         <p class="text-gray-500">Oleh {{ $payment->verifier->name }},
-                            {{ $payment->verified_at?->format('d/m/Y H:i') }}</p>
+                            {{ $payment->verified_at?->format('d/m/Y H:i') }}
+                        </p>
                     @endif
 
                     @if ($payment->status === \App\Models\Payment::PENDING)

@@ -19,7 +19,7 @@
 
         <div>
             <label class="block text-sm">Kamar</label>
-            <select name="room_id" required class="w-full rounded border p-2">
+            <select name="room_id" required class="input">
                 <option value="">Pilih kamar</option>
                 @foreach ($rooms->groupBy('roomType.name') as $typeName => $group)
                     <optgroup label="{{ $typeName }}">
@@ -35,12 +35,12 @@
             <div>
                 <label class="block text-sm">Mulai</label>
                 <input type="date" name="start_date" value="{{ old('start_date') }}" min="{{ today()->toDateString() }}"
-                    required class="w-full rounded border p-2">
+                    required class="input">
             </div>
             <div>
                 <label class="block text-sm">Selesai (malam terakhir diblokir)</label>
                 <input type="date" name="end_date" value="{{ old('end_date') }}" min="{{ today()->toDateString() }}"
-                    required class="w-full rounded border p-2">
+                    required class="input">
             </div>
         </div>
         <p class="text-xs text-gray-500">
@@ -49,11 +49,11 @@
 
         <div>
             <label class="block text-sm">Alasan (opsional)</label>
-            <input type="text" name="reason" value="{{ old('reason') }}" maxlength="255" class="w-full rounded border p-2">
+            <input type="text" name="reason" value="{{ old('reason') }}" maxlength="255" class="input">
         </div>
 
         <div class="flex gap-3">
-            <button class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Simpan</button>
+            <button class="rounded bg-brand-600 px-4 py-2 text-white hover:bg-brand-700">Simpan</button>
             <a href="{{ route('admin.blocked-dates.index') }}" class="px-4 py-2 text-gray-600 hover:underline">Batal</a>
         </div>
     </form>

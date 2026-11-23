@@ -31,32 +31,32 @@
             <div>
                 <label class="block text-sm">{{ __('Nama lengkap') }}</label>
                 <input type="text" name="guest_name" value="{{ old('guest_name') }}" required
-                    class="w-full rounded border p-2">
+                    class="input">
             </div>
 
             <div class="grid gap-4 sm:grid-cols-2">
                 <div>
                     <label class="block text-sm">Email</label>
                     <input type="email" name="guest_email" value="{{ old('guest_email') }}" required
-                        class="w-full rounded border p-2">
+                        class="input">
                 </div>
                 <div>
                     <label class="block text-sm">{{ __('Nomor HP') }}</label>
                     <input type="text" name="guest_phone" value="{{ old('guest_phone') }}" required
-                        class="w-full rounded border p-2">
+                        class="input">
                 </div>
             </div>
 
             <div>
                 <label class="block text-sm">{{ __('Catatan (opsional)') }}</label>
-                <textarea name="notes" rows="3" class="w-full rounded border p-2">{{ old('notes') }}</textarea>
+                <textarea name="notes" rows="3" class="input">{{ old('notes') }}</textarea>
             </div>
 
             <p class="rounded bg-yellow-50 p-3 text-sm text-yellow-800">
                 {{ __('Pembayaran langsung lunas. Booking dibatalkan otomatis jika belum dibayar dalam :hours jam. Booking tidak dapat dibatalkan setelah dibuat.', ['hours' => config('villa.payment_hours')]) }}
             </p>
 
-            <button class="rounded bg-blue-600 px-5 py-2 text-white hover:bg-blue-700">
+            <button class="rounded bg-brand-600 px-5 py-2 text-white hover:bg-brand-700">
                 {{ __('Buat Booking') }}
             </button>
         </form>

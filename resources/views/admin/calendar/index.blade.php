@@ -32,7 +32,7 @@
             <tr>
                 <th class="sticky left-0 bg-gray-50 p-2 text-left">Kamar</th>
                 @foreach ($days as $day)
-                    <th class="w-8 p-1 text-center {{ $day->isToday() ? 'bg-blue-100' : 'bg-gray-50' }}">
+                    <th class="w-8 p-1 text-center {{ $day->isToday() ? 'bg-brand-100' : 'bg-gray-50' }}">
                         {{ $day->day }}<br>
                         <span class="font-normal text-gray-400">{{ $hari[$day->dayOfWeek] }}</span>
                     </th>
