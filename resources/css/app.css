@@ -43,6 +43,12 @@ html {
     .site-header[data-mode='overlay']:not(.is-scrolled):not(.menu-open) {
         @apply bg-transparent text-white;
     }
+    .nav-link {
+    @apply border-b-2 border-transparent py-1 opacity-90 transition hover:opacity-100;
+    }
+    .nav-link.is-active {
+        @apply border-current font-semibold opacity-100;
+    }
 }
 
 /* Animasi scroll. Hanya aktif jika JS jalan (kelas "js"), jadi konten tidak hilang tanpa JS. */

@@ -7,7 +7,7 @@
         $locale = app()->getLocale();
         $about = config('villa.about');
         $heroImages = collect(config('villa.hero_images', []))
-            ->filter(fn ($path) => file_exists(public_path($path)))
+            ->filter(fn($path) => file_exists(public_path($path)))
             ->values();
     @endphp
 
@@ -15,8 +15,8 @@
     <section class="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-brand-900">
         @foreach ($heroImages as $i => $path)
             <img src="{{ asset($path) }}" alt="" data-hero-slide
-                 class="absolute inset-0 -z-10 h-full w-full object-cover transition-opacity duration-1000 {{ $i === 0 ? 'opacity-100' : 'opacity-0' }}"
-                 @if ($i > 0) loading="lazy" @endif>
+                class="absolute inset-0 -z-10 h-full w-full object-cover transition-opacity duration-1000 {{ $i === 0 ? 'opacity-100' : 'opacity-0' }}"
+                @if ($i > 0) loading="lazy" @endif>
         @endforeach
         <div class="absolute inset-0 -z-10 bg-black/40"></div>
 
@@ -30,18 +30,20 @@
             </h1>
 
             <form method="GET" action="{{ route('availability.index') }}" data-reveal style="--reveal-delay: 250ms"
-                  class="mt-8 grid gap-3 rounded-2xl bg-white p-4 shadow-xl sm:grid-cols-2 lg:grid-cols-4">
+                class="mt-8 grid gap-3 rounded-2xl bg-white p-4 shadow-xl sm:grid-cols-2 lg:grid-cols-4">
                 <div>
                     <label class="mb-1 block text-sm font-medium text-gray-700">Check-in</label>
                     <input type="date" name="check_in" min="{{ today()->toDateString() }}" required class="input">
                 </div>
                 <div>
                     <label class="mb-1 block text-sm font-medium text-gray-700">Check-out</label>
-                    <input type="date" name="check_out" min="{{ today()->addDay()->toDateString() }}" required class="input">
+                    <input type="date" name="check_out" min="{{ today()->addDay()->toDateString() }}" required
+                        class="input">
                 </div>
                 <div>
                     <label class="mb-1 block text-sm font-medium text-gray-700">{{ __('Jumlah tamu') }}</label>
-                    <input type="number" name="guests" min="1" max="50" value="2" required class="input">
+                    <input type="number" name="guests" min="1" max="50" value="2" required
+                        class="input">
                 </div>
                 <div class="flex items-end">
                     <x-button class="w-full">
@@ -82,7 +84,7 @@
             <div data-reveal="right">
                 @if (file_exists(public_path('images/about.jpg')))
                     <img src="{{ asset('images/about.jpg') }}" alt="{{ config('villa.name') }}" loading="lazy"
-                         class="aspect-[4/5] w-full rounded-3xl object-cover shadow-xl">
+                        class="aspect-[4/5] w-full rounded-3xl object-cover shadow-xl">
                 @else
                     <div class="aspect-[4/5] w-full rounded-3xl bg-brand-100"></div>
                 @endif
@@ -105,22 +107,25 @@
                         <div data-reveal="{{ $loop->even ? 'right' : 'left' }}" @class(['lg:order-2' => $loop->even])>
                             @if ($type->images->first())
                                 <img src="{{ $type->images->first()->url }}" alt="{{ $type->name }}" loading="lazy"
-                                     class="aspect-[4/3] w-full rounded-3xl object-cover shadow-lg">
+                                    class="aspect-[4/3] w-full rounded-3xl object-cover shadow-lg">
                             @else
-                                <div class="flex aspect-[4/3] w-full items-center justify-center rounded-3xl bg-sand-100 text-sm text-gray-400">
+                                <div
+                                    class="flex aspect-[4/3] w-full items-center justify-center rounded-3xl bg-sand-100 text-sm text-gray-400">
                                     {{ __('Belum ada foto') }}
                                 </div>
                             @endif
                         </div>
 
                         <div data-reveal="{{ $loop->even ? 'left' : 'right' }}" @class(['lg:order-1' => $loop->even])>
-                            <h3 class="font-display text-2xl font-semibold text-gray-900 sm:text-3xl">{{ $type->name }}</h3>
+                            <h3 class="font-display text-2xl font-semibold text-gray-900 sm:text-3xl">{{ $type->name }}
+                            </h3>
                             <p class="mt-2 flex items-center gap-1 text-sm text-gray-600">
                                 <x-heroicon-o-users class="h-4 w-4" /> {{ $type->capacity }} {{ __('tamu') }}
                             </p>
 
                             @if ($type->localized_description)
-                                <p class="mt-4 leading-relaxed text-gray-600">{{ str($type->localized_description)->limit(240) }}</p>
+                                <p class="mt-4 leading-relaxed text-gray-600">
+                                    {{ str($type->localized_description)->limit(240) }}</p>
                             @endif
 
                             <p class="mt-4 text-sm text-gray-500">{{ __('Mulai dari') }}</p>
@@ -139,11 +144,41 @@
                     <p class="text-center text-gray-500">{{ __('Belum ada kamar tersedia.') }}</p>
                 @endforelse
             </div>
+            <div class="mt-12 text-center">
+                <x-button :href="route('rooms.index')" variant="secondary">{{ __('Lihat semua kamar') }}</x-button>
+            </div>
+        </div>
+    </section>
+    {{-- FASILITAS --}}
+    <section class="py-16 sm:py-24">
+        <div class="mx-auto max-w-7xl px-4 lg:px-6">
+            <div data-reveal class="mx-auto max-w-2xl text-center">
+                <p class="text-sm uppercase tracking-[0.3em] text-brand-600">{{ __('Fasilitas') }}</p>
+                <h2 class="mt-2 font-display text-3xl font-semibold text-gray-900 sm:text-4xl">{{ __('Fasilitas Kami') }}
+                </h2>
+                <p class="mt-3 text-gray-600">{{ __('Semua yang Anda butuhkan untuk menginap dengan nyaman.') }}</p>
+            </div>
+
+            <ul class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+                @foreach (collect(config('villa.facilities'))->take(6) as $facility)
+                    <li data-reveal style="--reveal-delay: {{ $loop->index * 80 }}ms"
+                        class="flex flex-col items-center gap-3 rounded-2xl bg-white p-5 text-center shadow-sm ring-1 ring-sand-100">
+                        <span class="rounded-full bg-brand-100 p-3 text-brand-700">
+                            <x-dynamic-component :component="'heroicon-o-' . $facility['icon']" class="h-6 w-6" />
+                        </span>
+                        <span class="text-sm font-medium text-gray-700">{{ $facility['name'][$locale] }}</span>
+                    </li>
+                @endforeach
+            </ul>
+
+            <div class="mt-8 text-center">
+                <x-button :href="route('facilities.index')" variant="secondary">{{ __('Lihat semua fasilitas') }}</x-button>
+            </div>
         </div>
     </section>
 
     {{-- KONTAK --}}
-    <section id="kontak" class="scroll-mt-16 py-16 sm:py-24">
+    {{-- <section id="kontak" class="scroll-mt-16 py-16 sm:py-24">
         <div class="mx-auto grid max-w-7xl gap-10 px-4 lg:grid-cols-2 lg:px-6">
             <div data-reveal="left">
                 <p class="text-sm uppercase tracking-[0.3em] text-brand-600">{{ __('Kontak') }}</p>
@@ -195,5 +230,5 @@
                 @endif
             </div>
         </div>
-    </section>
+    </section> --}}
 @endsection

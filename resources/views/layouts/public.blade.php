@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', config('villa.name'))</title>
     <link rel="icon" href="{{ asset('favicon.ico') }}">
-    <script>document.documentElement.classList.add('js')</script>
+    <script>
+        document.documentElement.classList.add('js')
+    </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -61,10 +63,19 @@
             <div>
                 <p class="font-display text-2xl font-semibold text-white">{{ config('villa.name') }}</p>
                 <p class="mt-2 text-sm">{{ config('villa.tagline.' . app()->getLocale()) }}</p>
-                <div class="mt-4 flex gap-4 text-sm">
+                {{-- <div class="mt-4 flex gap-4 text-sm">
                     @foreach (array_filter(config('villa.social', [])) as $name => $url)
                         <a href="{{ $url }}" target="_blank" rel="noopener"
                             class="capitalize hover:text-white">{{ $name }}</a>
+                    @endforeach
+                </div> --}}
+                <div class="mt-5 flex gap-3">
+                    @foreach (array_filter(config('villa.social', [])) as $name => $url)
+                        <a href="{{ $url }}" target="_blank" rel="noopener noreferrer"
+                            aria-label="{{ ucfirst($name) }}"
+                            class="flex h-10 w-10 items-center justify-center rounded-full border border-brand-100/40 text-brand-100 transition hover:border-white hover:bg-white hover:text-brand-900">
+                            <x-social-icon :name="$name" class="h-5 w-5" />
+                        </a>
                     @endforeach
                 </div>
             </div>
@@ -74,9 +85,12 @@
                 <ul class="mt-3 space-y-2 text-sm">
                     <li><a href="{{ route('home') }}" class="hover:text-white">{{ __('Beranda') }}</a></li>
                     <li><a href="{{ route('rooms.index') }}" class="hover:text-white">{{ __('Kamar') }}</a></li>
+                    <li><a href="{{ route('facilities.index') }}" class="hover:text-white">{{ __('Fasilitas') }}</a>
+                    </li>
+                    <li><a href="{{ route('gallery.index') }}" class="hover:text-white">{{ __('Galeri') }}</a></li>
+                    <li><a href="{{ route('contact.index') }}" class="hover:text-white">{{ __('Kontak') }}</a></li>
                     <li><a href="{{ route('availability.index') }}"
                             class="hover:text-white">{{ __('Cek Ketersediaan') }}</a></li>
-                    <li><a href="{{ route('home') }}#kontak" class="hover:text-white">{{ __('Kontak') }}</a></li>
                 </ul>
             </div>
 
