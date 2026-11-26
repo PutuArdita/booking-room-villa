@@ -18,11 +18,16 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\PageController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('kamar', [PublicRoomController::class, 'index'])->name('rooms.index');
 Route::get('kamar/{roomType:slug}', [PublicRoomController::class, 'show'])->name('rooms.show');
 Route::get('bahasa/{locale}', [LocaleController::class, 'switch'])->name('locale');
+
+Route::get('fasilitas', [PageController::class, 'facilities'])->name('facilities.index');
+Route::get('galeri', [PageController::class, 'gallery'])->name('gallery.index');
+Route::get('kontak', [PageController::class, 'contact'])->name('contact.index');
 
 
 // ADMIN & OWNER AUTH

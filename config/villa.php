@@ -48,5 +48,68 @@ return [
     'social' => [
         'instagram' => env('VILLA_INSTAGRAM', ''),
         'facebook' => env('VILLA_FACEBOOK', ''),
+        'tiktok' => env('VILLA_TIKTOK', ''),
+    ],
+
+    'hours' => [
+        'id' => 'Resepsionis buka setiap hari, 08.00 - 21.00 WITA',
+        'en' => 'Front desk open daily, 08:00 - 21:00 WITA',
+    ],
+
+    'facilities' => [
+        [
+            'icon' => 'sun',
+            'image' => 'images/facilities/pool.jpg', // opsional, kosongkan ('') jika belum ada foto
+            'name' => ['id' => 'Kolam Renang', 'en' => 'Swimming Pool'],
+            'description' => [
+                'id' => 'Deskripsi singkat fasilitas. Ganti dengan teks asli.',
+                'en' => 'Short facility description. Replace with the real text.',
+            ],
+        ],
+        [
+            'icon' => 'wifi',
+            'image' => '',
+            'name' => ['id' => 'Wi-Fi Gratis', 'en' => 'Free Wi-Fi'],
+            'description' => [
+                'id' => 'Deskripsi singkat fasilitas. Ganti dengan teks asli.',
+                'en' => 'Short facility description. Replace with the real text.',
+            ],
+        ],
+        [
+            'icon' => 'sparkles',
+            'image' => '',
+            'name' => ['id' => 'Layanan Kebersihan', 'en' => 'Housekeeping'],
+            'description' => [
+                'id' => 'Deskripsi singkat fasilitas. Ganti dengan teks asli.',
+                'en' => 'Short facility description. Replace with the real text.',
+            ],
+        ],
+        [
+            'icon' => 'home-modern',
+            'image' => '',
+            'name' => ['id' => 'Area Santai', 'en' => 'Lounge Area'],
+            'description' => [
+                'id' => 'Deskripsi singkat fasilitas. Ganti dengan teks asli.',
+                'en' => 'Short facility description. Replace with the real text.',
+            ],
+        ],
+        [
+            'icon' => 'key',
+            'image' => '',
+            'name' => ['id' => 'Check-in Fleksibel', 'en' => 'Flexible Check-in'],
+            'description' => [
+                'id' => 'Deskripsi singkat fasilitas. Ganti dengan teks asli.',
+                'en' => 'Short facility description. Replace with the real text.',
+            ],
+        ],
+        [
+            'icon' => 'tv',
+            'image' => '',
+            'name' => ['id' => 'TV Layar Datar', 'en' => 'Flat-screen TV'],
+            'description' => [
+                'id' => 'Deskripsi singkat fasilitas. Ganti dengan teks asli.',
+                'en' => 'Short facility description. Replace with the real text.',
+            ],
+        ],
     ],
 ];
