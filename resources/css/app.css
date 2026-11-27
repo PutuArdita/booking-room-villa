@@ -49,6 +49,12 @@ html {
     .nav-link.is-active {
         @apply border-current font-semibold opacity-100;
     }
+    .chip {
+    @apply whitespace-nowrap rounded-full border border-brand-600/30 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-brand-600 hover:text-brand-700;
+    }
+    .chip.is-active {
+        @apply border-brand-600 bg-brand-600 text-white hover:text-white;
+    }
 }
 
 /* Animasi scroll. Hanya aktif jika JS jalan (kelas "js"), jadi konten tidak hilang tanpa JS. */
