@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\Admin\GalleryCategoryController;
+use App\Http\Controllers\Admin\GalleryController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('kamar', [PublicRoomController::class, 'index'])->name('rooms.index');
@@ -84,6 +86,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('pembayaran/{payment}/verifikasi', [ReservationController::class, 'verifyPayment'])->name('payments.verify');
         Route::post('pembayaran/{payment}/tolak', [ReservationController::class, 'rejectPayment'])->name('payments.reject');
         Route::get('pembayaran/{payment}/bukti', [ReservationController::class, 'proof'])->name('payments.proof');
+
+        // gallery
+        Route::get('galeri', [GalleryController::class, 'index'])->name('gallery.index');
+        Route::post('galeri', [GalleryController::class, 'store'])->name('gallery.store');
+        Route::patch('galeri/foto/{image}', [GalleryController::class, 'update'])->name('gallery.update');
+        Route::delete('galeri/foto/{image}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
+
+        Route::get('galeri/kategori', [GalleryCategoryController::class, 'index'])->name('gallery-categories.index');
+        Route::post('galeri/kategori', [GalleryCategoryController::class, 'store'])->name('gallery-categories.store');
+        Route::put('galeri/kategori/{category}', [GalleryCategoryController::class, 'update'])->name('gallery-categories.update');
+        Route::delete('galeri/kategori/{category}', [GalleryCategoryController::class, 'destroy'])->name('gallery-categories.destroy');
     });
 });
 
@@ -106,3 +119,5 @@ Route::post('booking/{code}/bayar', [PaymentController::class, 'store'])
 
 // expiring booking
 Schedule::command('bookings:expire')->everyFiveMinutes()->withoutOverlapping();
+
+

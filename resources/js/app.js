@@ -1,3 +1,5 @@
+import { initGallery } from './gallery';
+
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.getElementById('site-header');
     const toggle = document.getElementById('menu-toggle');
@@ -50,4 +52,5 @@ document.addEventListener('DOMContentLoaded', () => {
             slides[current].classList.replace('opacity-0', 'opacity-100');
         }, 6000);
     }
+        initGallery();
 });

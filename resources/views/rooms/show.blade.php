@@ -1,4 +1,5 @@
 @extends('layouts.public')
+{{-- @include('layouts._page-header') --}}
 
 @section('title', $roomType->name . ' - ' . config('villa.name'))
 

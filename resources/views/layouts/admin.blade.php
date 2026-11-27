@@ -14,6 +14,7 @@
             <a href="{{ route('admin.dashboard') }}" class="font-bold">Villa A Admin</a>
             <div class="flex items-center gap-4 text-sm">
                 <a href="{{ route('admin.calendar') }}" class="hover:underline">Kalender</a>
+                <a href="{{ route('admin.gallery.index') }}" class="hover:underline">Galeri</a>
                 <a href="{{ route('admin.blocked-dates.index') }}" class="hover:underline">Blokir</a>
                 <a href="{{ route('admin.reservations.index') }}" class="hover:underline">Reservasi</a>
                 <a href="{{ route('admin.room-types.index') }}" class="hover:underline">Tipe Kamar</a>
